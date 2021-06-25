@@ -1,0 +1,34 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR POSITION
+@import '../../functions';
+
+@include options($positions) using ($value) {
+  position: $value;
+}
+
+// PLACEMENT
+
+$position-placements: populateplacementmap();
+
+.top {
+  @include options($position-placements) using ($value) {
+    top: $value;
+  }
+}
+
+.bottom {
+  @include options($position-placements) using ($value) {
+    bottom: $value;
+  }
+}
+
+.left {
+  @include options($position-placements) using ($value) {
+    left: $value;
+  }
+}
+
+.right {
+  @include options($position-placements) using ($value) {
+    right: $value;
+  }
+}

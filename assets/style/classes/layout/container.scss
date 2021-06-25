@@ -1,0 +1,11 @@
+// CREATES RESPONSIVE CLASSES FOR CONTAINER
+
+.container {
+  width: 100%;
+
+  @each $breakpoint, $value in $breakpoints {
+    @media screen and (min-width: #{$value}) {
+      max-width: $value;
+    }
+  }
+}

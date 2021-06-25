@@ -1,0 +1,36 @@
+// CREATE CLASSES FOR SPACING
+
+@function populatespacingmap($spacingmap: (), $is-negative: false) {
+  $initial: if($is-negative, 1, 0);
+  $prefix: if($is-negative, 'n', '');
+  $multiplier: if($is-negative, $spacing-n-multiplier, $spacing-multiplier);
+
+  @for $size from $initial through $spacing-max {
+    $spacingmap: map.merge($spacingmap, ($prefix + $size: $size * $multiplier));
+  }
+
+  @return $spacingmap;
+}
+
+// CREATE CLASSES FOR FLEX COLUMNS
+
+@function populategrid($max) {
+  $grid: ();
+
+  @for $size from 1 through $max {
+    $grid: map.merge($grid, ($size: repeat($size, minmax(0, 1fr))));
+  }
+
+  @return $grid;
+}
+
+// CREATE MAP FOR PLACEMENTS
+@function populateplacementmap() {
+  $placements: ();
+
+  @each $name, $multiplier in $placement-multipliers {
+    $placements: map.merge($placements, ($name: $placement-initial * $multiplier));
+  }
+
+  @return $placements;
+}

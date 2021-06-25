@@ -1,0 +1,27 @@
+// MIXINS USE
+
+$breakpoint-separator: \:;
+$grid-columns-length: 12;
+$grid-rows-length: 6;
+$option-separator: '-';
+$spacing-multiplier: 4px;
+$spacing-n-multiplier: -4px;
+$spacing-max: 16;
+$placement-initial: 0.25rem;
+$placement-multipliers: (
+  '0': 0,
+  'half': 0.5,
+  '1': 1,
+  'three-halves': 1.5,
+  '2': 2,
+  'five-halves': 2.5,
+  '3': 3,
+  'seven-halves': 3.5,
+  '4': 4,
+  '5': 5,
+  '6': 6,
+  '7': 7,
+  '8': 8,
+  '9': 9,
+  '10': 10
+);

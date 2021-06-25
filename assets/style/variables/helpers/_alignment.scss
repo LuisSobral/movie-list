@@ -1,0 +1,18 @@
+// GRID AND FLEXBOX
+
+$align-items: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'baseline': baseline,
+  'stretch': stretch,
+);
+
+$justify-content: (
+  'start': flex-start,
+  'end': flex-end,
+  'center': center,
+  'evenly': space-evenly,
+  'space-between': space-between,
+  'space-around': space-around,
+);

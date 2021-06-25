@@ -1,0 +1,17 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR TYPOGRAPHY PROPERTYS
+
+// TEXT ALIGNMENT
+
+.text {
+  @include options($text-alignment) using ($value) {
+    text-align: $value;
+  }
+}
+
+// FONT WEIGHT
+
+.weight {
+  @include options($font-weight) using ($value) {
+    font-weight: $value;
+  }
+}

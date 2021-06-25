@@ -1,0 +1,45 @@
+// CREATE RESPONSIVE CLASSES
+
+@mixin responsive() {
+  @at-root {
+    @each $breakpoint, $value in $breakpoints {
+      @each $selector in & {
+        $selector: list.nth($selector, 1);
+        $selector: string.slice($selector, 2);
+        $selector: '.#{$breakpoint}#{$breakpoint-separator}#{$selector}';
+
+        #{$selector} {
+          @media screen and (min-width: #{$value}) {
+            @content;
+          }
+        }
+      }
+    }
+  }
+}
+
+// CREATE OPTIONS FOR CLASSES
+
+@mixin options($classes) {
+  @each $key, $value in $classes {
+    @if & {
+      &#{$option-separator}#{$key} {
+        @include responsive {
+          @content($value);
+        }
+
+        @content($value);
+      }
+    }
+
+    @else {
+      .#{$key} {
+        @include responsive {
+          @content($value);
+        }
+
+        @content($value);
+      }
+    }
+  }
+}

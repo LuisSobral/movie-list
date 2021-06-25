@@ -1,0 +1,7 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR HEIGHT
+
+.h {
+  @include options($height) using ($value) {
+    height: $value;
+  }
+}

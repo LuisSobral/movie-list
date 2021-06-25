@@ -1,0 +1,13 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR FLEXBOX AND GRID ALIGNMENT
+
+.items {
+  @include options($align-items) using ($value) {
+    align-items: $value;
+  }
+}
+
+.justify {
+  @include options($justify-content) using ($value) {
+    justify-content: $value;
+  }
+}

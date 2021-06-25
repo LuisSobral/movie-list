@@ -1,0 +1,99 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR MARGIN AND PADDING
+@import '../../functions';
+
+$paddings: map.merge(populatespacingmap(), populatespacingmap((), true));
+$margins: map.merge(populatespacingmap(('auto': auto)), populatespacingmap((), true));
+
+.m {
+  &t {
+    @include options($margins) using ($value) {
+      margin-top: $value;
+    }
+  }
+
+  &b {
+    @include options($margins) using ($value) {
+      margin-bottom: $value;
+    }
+  }
+
+  &l {
+    @include options($margins) using ($value) {
+      margin-left: $value;
+    }
+  }
+
+  &r {
+    @include options($margins) using ($value) {
+      margin-right: $value;
+    }
+  }
+
+  &y {
+    @include options($margins) using ($value) {
+      margin-bottom: $value;
+      margin-top: $value;
+    }
+  }
+
+  &x {
+    @include options($margins) using ($value) {
+      margin-left: $value;
+      margin-right: $value;
+    }
+  }
+
+  &a {
+    .ma {
+      @include options($margins) using ($value) {
+        margin: $value;
+      }
+    }
+  }
+}
+
+.p {
+  &t {
+    @include options($paddings) using ($value) {
+      padding-top: $value;
+    }
+  }
+
+  &b {
+    @include options($paddings) using ($value) {
+      padding-bottom: $value;
+    }
+  }
+
+  &l {
+    @include options($paddings) using ($value) {
+      padding-left: $value;
+    }
+  }
+
+  &r {
+    @include options($paddings) using ($value) {
+      padding-right: $value;
+    }
+  }
+
+  &y {
+    @include options($paddings) using ($value) {
+      padding-bottom: $value;
+      padding-top: $value;
+    }
+  }
+
+  &x {
+    @include options($paddings) using ($value) {
+      padding-left: $value;
+      padding-right: $value;
+    }
+  }
+
+  &a {
+    @include options($paddings) using ($value) {
+      padding: $value;
+    }
+  }
+}
