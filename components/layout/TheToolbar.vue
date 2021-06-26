@@ -1,5 +1,5 @@
 <template>
-  <header class="header absolute top-0 bottom-0 left-0 right-0">
+  <header class="header">
     <div
       class="
         container
@@ -39,15 +39,19 @@
           </li>
         </ul>
       </nav>
-      <div>
+      <div class="flex items-center">
         <div class="header__nav__input relative">
-          <font-awesome-icon :icon="['fas', 'search']" class="absolute top-seven-halves left-6" />
+          <font-awesome-icon
+            :icon="['fas', 'search']"
+            class="absolute ml-6 mt-3"
+          />
           <input
             type="text"
-            class="pl-13 pr-6"
+            class="py-3 pl-13 pr-5"
             placeholder="Busque por filmes, gêneros ou atores"
           />
         </div>
+        <div class="header__nav__avatar ml-8" />
       </div>
     </div>
   </header>
@@ -55,6 +59,7 @@
 
 <style lang="scss" scoped>
 .header {
+  background-color: #fff;
   height: 100px;
 
   &__nav {
@@ -86,7 +91,6 @@
     &__input > input {
       border: 1px solid rgba(31, 40, 51, 0.2);
       border-radius: 30px;
-      height: 44px;
       width: 357px;
 
       &::placeholder {
@@ -99,6 +103,15 @@
 
     &__input > svg {
       color: $normal-color;
+    }
+
+    &__avatar {
+      background-image: url('/avatar.jpg');
+      background-position: center;
+      background-size: cover;
+      border-radius: 37px;
+      height: 35px;
+      width: 35px;
     }
   }
 }

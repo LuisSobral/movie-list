@@ -1,10 +1,14 @@
 // CREATES CLASSES AND RESPONSIVE CLASSES FOR TYPOGRAPHY PROPERTYS
 
-// TEXT ALIGNMENT
+// TEXT ALIGNMENT // FONT SIZE
 
 .text {
   @include options($text-alignment) using ($value) {
     text-align: $value;
+  }
+
+  @include options($font-size) using ($value) {
+    font-size: $value;
   }
 }
 
@@ -13,5 +17,13 @@
 .weight {
   @include options($font-weight) using ($value) {
     font-weight: $value;
+  }
+}
+
+// LINE HEIGHT
+
+.line-height {
+  @include options($line-height) using ($value) {
+    line-height: $value;
   }
 }

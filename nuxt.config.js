@@ -17,7 +17,7 @@ export default {
   css: ['~/assets/style/global.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/api', '~/plugins/axios'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -47,7 +47,7 @@ export default {
   // Google Fonts module configuration: https://google-fonts.nuxtjs.org/setup
   googleFonts: {
     families: {
-      Raleway: [400, 500, 700],
+      Raleway: [400, 500, 700, 800],
     },
   },
 
@@ -65,8 +65,15 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'https://api.themoviedb.org/3/',
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // Global public environment variables: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-runtime-config
+  publicRuntimeConfig: {
+    apiKey: process.env.TMDB_KEY || '',
+  },
 }
