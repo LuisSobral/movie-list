@@ -10,5 +10,8 @@ module.exports = {
     'plugin:nuxt/recommended',
   ],
   plugins: [],
-  rules: {},
+  rules: {
+    camelcase: 'off',
+    'import/no-mutable-exports': 'off',
+  },
 }

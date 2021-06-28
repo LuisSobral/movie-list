@@ -32,3 +32,17 @@ $position-placements: populateplacementmap();
     right: $value;
   }
 }
+
+.placement-x {
+  @include options($position-placements) using ($value) {
+    left: $value;
+    right: $value;
+  }
+}
+
+.placement-y {
+  @include options($position-placements) using ($value) {
+    bottom: $value;
+    top: $value;
+  }
+}
