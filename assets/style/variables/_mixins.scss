@@ -1,6 +1,7 @@
 // MIXINS USE
 
 $breakpoint-separator: \:;
+$grid-gap-max: 20;
 $grid-columns-length: 12;
 $grid-rows-length: 6;
 $option-separator: '-';
@@ -23,5 +24,11 @@ $placement-multipliers: (
   '7': 7,
   '8': 8,
   '9': 9,
-  '10': 10
+  '10': 10,
+  '11': 11,
+  '12': 12,
+  '13': 13,
+  '14': 14,
+  '15': 15,
+  '16': 16
 );

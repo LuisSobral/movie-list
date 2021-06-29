@@ -7,3 +7,20 @@ $display: (
   'none': none,
   'inline-block': inline-block
 );
+
+// FLEX OPTIONS
+
+$flex-items: (
+  '1': 1 1 0%,
+  'auto': 1 1 auto,
+  'shrink': 0 1 auto,
+  'grow': 1 0 auto,
+  'none': none
+);
+
+// FLEX DIRECTIONS
+
+$flex-directions: (
+  'row': row,
+  'column': column
+);

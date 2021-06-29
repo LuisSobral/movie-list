@@ -1,5 +1,38 @@
 // CREATES CLASSES AND RESPONSIVE CLASSES FOR DISPLAY
+@import '../../functions';
 
 @include options($display) using ($value) {
   display: $value;
+}
+
+// GRID COLUMNS
+
+$grid-columns: populategrid($grid-columns-length);
+
+.grid-columns {
+  @include options($grid-columns) using ($value) {
+    grid-template-columns: $value;
+  }
+}
+
+// GRID GAP
+
+$grid-gap: populategap($grid-gap-max);
+
+.grid-gap {
+  @include options($grid-gap) using ($value) {
+    gap: $value;
+  }
+}
+
+// FLEX ITEMS AND DIRECTIONS
+
+.flex {
+  @include options($flex-items) using ($value) {
+    flex: $value;
+  }
+
+  @include options($flex-directions) using ($value) {
+    flex-direction: $value;
+  }
 }

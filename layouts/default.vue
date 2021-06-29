@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LayoutTheToolbar />
-    <main>
+    <LayoutTheToolbar class="none sm:block" />
+    <main class="pb-12">
       <Nuxt />
     </main>
   </div>

@@ -1,35 +1,33 @@
 import { InterfaceGenre } from './InterfaceGenre'
 import { InterfaceMovie } from './InterfaceMovie'
 
-interface InterfaceResponseNowPlaying {
-  page: number
+interface InterfaceMoviesResponse {
+  page?: number
   results: InterfaceMovie[]
-  dates: {
+  dates?: {
     maximum: string
     minimum: string
   }
-  totalPages: number
-  totalResults: number
+  total_pages?: number
+  total_results?: number
 }
 
-interface InterfaceResponseMoviesGenres {
+interface InterfaceMoviesGenresResponse {
   genres: InterfaceGenre[]
 }
 
 interface InterfaceApi {
   $repositories: {
     movies: {
-      nowPlaying(): Promise<InterfaceResponseNowPlaying | InterfaceMovie[]>
+      nowPlaying(): Promise<InterfaceMoviesResponse | InterfaceMovie[]>
+      popular(): Promise<InterfaceMoviesResponse | InterfaceMovie[]>
+      topRated(): Promise<InterfaceMoviesResponse | InterfaceMovie[]>
     }
 
     genres: {
-      list(): Promise<InterfaceResponseMoviesGenres | InterfaceGenre[]>
+      list(): Promise<InterfaceMoviesGenresResponse | InterfaceGenre[]>
     }
   }
 }
 
-export {
-  InterfaceApi,
-  InterfaceResponseNowPlaying,
-  InterfaceResponseMoviesGenres,
-}
+export { InterfaceApi, InterfaceMoviesResponse, InterfaceMoviesGenresResponse }

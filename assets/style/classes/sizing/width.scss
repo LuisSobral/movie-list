@@ -1,0 +1,7 @@
+// CREATES CLASSES AND RESPONSIVE CLASSES FOR WIDTH
+
+.w {
+  @include options($width) using ($value) {
+    width: $value;
+  }
+}

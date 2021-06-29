@@ -25,7 +25,7 @@
     @if & {
       &#{$option-separator}#{$key} {
         @include responsive {
-          @content($value);
+          @content($value !important);
         }
 
         @content($value);
@@ -35,7 +35,7 @@
     @else {
       .#{$key} {
         @include responsive {
-          @content($value);
+          @content($value !important);
         }
 
         @content($value);

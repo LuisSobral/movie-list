@@ -2,7 +2,7 @@ import { Module, VuexModule, MutationAction } from 'nuxt-property-decorator'
 
 import { $api } from '~/plugins/api'
 import { InterfaceMovie } from '~/types/InterfaceMovie'
-import { InterfaceResponseNowPlaying } from '~/types/InterfaceApi'
+import { InterfaceMoviesResponse } from '~/types/InterfaceApi'
 
 @Module({
   name: 'movies',
@@ -11,6 +11,8 @@ import { InterfaceResponseNowPlaying } from '~/types/InterfaceApi'
 })
 export default class MoviesModule extends VuexModule {
   nowPlayingMovies: InterfaceMovie[] = []
+  popularMovies: InterfaceMovie[] = []
+  topRatedMovies: InterfaceMovie[] = []
 
   @MutationAction
   async fetchNowPlayingMovies(): Promise<{
@@ -19,7 +21,27 @@ export default class MoviesModule extends VuexModule {
     const response = await $api.$repositories.movies.nowPlaying()
     return {
       nowPlayingMovies:
-        (response as InterfaceResponseNowPlaying).results || response,
+        (response as InterfaceMoviesResponse).results || response,
+    }
+  }
+
+  @MutationAction
+  async fetchPopularMovies(): Promise<{
+    popularMovies: InterfaceMovie[]
+  }> {
+    const response = await $api.$repositories.movies.popular()
+    return {
+      popularMovies: (response as InterfaceMoviesResponse).results || response,
+    }
+  }
+
+  @MutationAction
+  async fetchTopRatedMovies(): Promise<{
+    topRatedMovies: InterfaceMovie[]
+  }> {
+    const response = await $api.$repositories.movies.topRated()
+    return {
+      topRatedMovies: (response as InterfaceMoviesResponse).results || response,
     }
   }
 }

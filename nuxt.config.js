@@ -47,14 +47,15 @@ export default {
   // Google Fonts module configuration: https://google-fonts.nuxtjs.org/setup
   googleFonts: {
     families: {
-      Raleway: [400, 500, 700, 800],
+      Raleway: [400, 500, 600, 700, 800],
+      'Fira Sans': [400, 600],
     },
   },
 
   // Font Awesome module configuration: https://github.com/nuxt-community/fontawesome-module
   fontawesome: {
     icons: {
-      solid: ['faSearch'],
+      solid: ['faSearch', 'faHeart', 'faStar'],
     },
   },
 
