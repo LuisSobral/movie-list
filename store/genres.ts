@@ -2,7 +2,8 @@ import { Module, VuexModule, MutationAction } from 'nuxt-property-decorator'
 
 import { $api } from '~/plugins/api'
 import { InterfaceGenre } from '~/types/InterfaceGenre'
-import { InterfaceMoviesGenresResponse } from '~/types/InterfaceApi'
+import { InterfaceResponse } from '~/types/InterfaceApi'
+import { InterfaceMovie } from '~/types/InterfaceMovie'
 
 @Module({
   name: 'genres',
@@ -11,6 +12,7 @@ import { InterfaceMoviesGenresResponse } from '~/types/InterfaceApi'
 })
 export default class GenresModule extends VuexModule {
   genres: InterfaceGenre[] = []
+  movieGenre: InterfaceMovie = {}
 
   @MutationAction
   async fetchGenres(): Promise<{
@@ -18,7 +20,8 @@ export default class GenresModule extends VuexModule {
   }> {
     const response = await $api.$repositories.genres.list()
     return {
-      genres: (response as InterfaceMoviesGenresResponse).genres || response,
+      genres: ((response as InterfaceResponse).genres ||
+        response) as InterfaceGenre[],
     }
   }
 }

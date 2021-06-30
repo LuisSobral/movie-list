@@ -1,0 +1,11 @@
+// BACKGROUND SIZE
+
+@include options(('background-cover': cover)) using ($value) {
+  background-size: $value;
+}
+
+// BACKGROUND POSITION
+
+@include options(('background-center': center)) using ($value) {
+  background-position: $value;
+}

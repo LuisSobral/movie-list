@@ -19,6 +19,7 @@ $text-alignment: (
 // FONT WEIGHT
 
 $font-weight: (
+  'normal': 400,
   'medium': 500,
   'semibold': 600,
   'bold': 700,
@@ -30,6 +31,7 @@ $font-weight: (
 $font-size: (
   'xs': 0.75rem,
   'sm': 0.875rem,
+  'md': 1rem,
   'lg': 1.125rem,
   'xl': 1.25rem,
   '2xl': 1.5rem,

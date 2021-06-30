@@ -1,0 +1,7 @@
+// FLOAT
+
+.float {
+  @include options($floats) using ($value) {
+    float: $value;
+  }
+}

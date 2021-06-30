@@ -16,42 +16,34 @@
           <li class="px-4">
             <nuxt-link
               to="/"
-              class="header__nav__link weight-bold"
-              active-class="active relative"
+              class="header__nav__link relative weight-bold"
+              exact-active-class="active"
               >Início</nuxt-link
             >
           </li>
           <li class="px-4">
             <nuxt-link
               to="/descobrir"
-              class="header__nav__link weight-bold"
-              active-class="active relative weight-bold"
+              class="header__nav__link relative weight-bold"
+              exact-active-class="active"
               >Descobrir</nuxt-link
             >
           </li>
           <li class="px-4">
             <nuxt-link
               to="/favoritos"
-              class="header__nav__link weight-bold"
-              active-class="active relative weight-bold"
+              class="header__nav__link relative weight-bold"
+              exact-active-class="active"
               >Favoritos</nuxt-link
             >
           </li>
         </ul>
       </nav>
       <div class="flex items-center">
-        <div class="header__nav__input relative">
-          <font-awesome-icon
-            :icon="['fas', 'search']"
-            class="absolute ml-6 mt-3"
-          />
-          <input
-            type="text"
-            class="py-3 pl-13 pr-5"
-            placeholder="Busque por filmes, gêneros ou atores"
-          />
-        </div>
-        <div class="header__nav__avatar ml-8" />
+        <LayoutSearchInput />
+        <div
+          class="header__nav__avatar background-cover background-center ml-8"
+        />
       </div>
     </div>
   </header>
@@ -59,7 +51,7 @@
 
 <style lang="scss" scoped>
 .header {
-  background-color: #fff;
+  background-color: $color-white;
   height: 100px;
 
   &__nav {
@@ -88,28 +80,9 @@
       }
     }
 
-    &__input > input {
-      border: 1px solid rgba(31, 40, 51, 0.2);
-      border-radius: 30px;
-      width: 357px;
-
-      &::placeholder {
-        color: $important-color;
-        font-family: $font;
-        font-size: 13px;
-        font-weight: 500;
-      }
-    }
-
-    &__input > svg {
-      color: $normal-color;
-    }
-
     &__avatar {
       background-image: url('/avatar.jpg');
-      background-position: center;
-      background-size: cover;
-      border-radius: 37px;
+      border-radius: 50%;
       height: 35px;
       width: 35px;
     }

@@ -34,6 +34,16 @@
   @return $gap;
 }
 
+@function populategridspan($max) {
+  $span: ();
+
+  @for $size from 1 through $max {
+    $span: map.merge($span, ($size: span #{$size} / span #{$size}));
+  }
+
+  @return $span;
+}
+
 // CREATE MAP FOR PLACEMENTS
 
 @function populateplacementmap() {

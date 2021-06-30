@@ -2,7 +2,7 @@ import { Module, VuexModule, MutationAction } from 'nuxt-property-decorator'
 
 import { $api } from '~/plugins/api'
 import { InterfaceMovie } from '~/types/InterfaceMovie'
-import { InterfaceMoviesResponse } from '~/types/InterfaceApi'
+import { InterfaceResponse } from '~/types/InterfaceApi'
 
 @Module({
   name: 'movies',
@@ -10,9 +10,20 @@ import { InterfaceMoviesResponse } from '~/types/InterfaceApi'
   stateFactory: true,
 })
 export default class MoviesModule extends VuexModule {
+  latest: InterfaceMovie = {}
   nowPlayingMovies: InterfaceMovie[] = []
   popularMovies: InterfaceMovie[] = []
   topRatedMovies: InterfaceMovie[] = []
+
+  @MutationAction
+  async fetchLatest(): Promise<{
+    latest: InterfaceMovie
+  }> {
+    const response = await $api.$repositories.movies.movie(299534)
+    return {
+      latest: response,
+    }
+  }
 
   @MutationAction
   async fetchNowPlayingMovies(): Promise<{
@@ -20,8 +31,8 @@ export default class MoviesModule extends VuexModule {
   }> {
     const response = await $api.$repositories.movies.nowPlaying()
     return {
-      nowPlayingMovies:
-        (response as InterfaceMoviesResponse).results || response,
+      nowPlayingMovies: ((response as InterfaceResponse).results ||
+        response) as InterfaceMovie[],
     }
   }
 
@@ -31,7 +42,8 @@ export default class MoviesModule extends VuexModule {
   }> {
     const response = await $api.$repositories.movies.popular()
     return {
-      popularMovies: (response as InterfaceMoviesResponse).results || response,
+      popularMovies: ((response as InterfaceResponse).results ||
+        response) as InterfaceMovie[],
     }
   }
 
@@ -41,7 +53,8 @@ export default class MoviesModule extends VuexModule {
   }> {
     const response = await $api.$repositories.movies.topRated()
     return {
-      topRatedMovies: (response as InterfaceMoviesResponse).results || response,
+      topRatedMovies: ((response as InterfaceResponse).results ||
+        response) as InterfaceMovie[],
     }
   }
 }

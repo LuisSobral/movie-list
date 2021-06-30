@@ -8,6 +8,12 @@ html {
   font-size: 16px;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 *,
 *::before,
 *::after {
@@ -21,12 +27,19 @@ button {
   outline: 0;
 }
 
+body {
+  background-color: $background-color;
+  color: #1f2833;
+}
+
 // LAYOUT
 @import './classes/layout/display';
 @import './classes/layout/position';
 @import './classes/layout/container';
+@import './classes/layout/floats';
 
 // HELPERS
+@import './classes/helpers/background';
 @import './classes/helpers/spacing';
 @import './classes/helpers/alignment';
 @import './classes/helpers/typography';

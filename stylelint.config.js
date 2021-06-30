@@ -9,8 +9,12 @@ module.exports = {
   rules: {
     'function-parentheses-space-inside': 'never-single-line',
     'max-nesting-depth': [
-      3,
+      4,
       { ignore: ['blockless-at-rules', 'pseudo-classes'] },
+    ],
+    'selector-pseudo-element-no-unknown': [
+      true,
+      { ignorePseudoElements: ['v-deep'] },
     ],
   },
 }

@@ -1,10 +1,10 @@
 <template>
   <div>
     <section
-      class="banner relative"
+      class="banner relative background-center"
       :style="{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${
-          isMobile ? principalMovie.poster_path : principalMovie.backdrop_path
+          isMobile ? latestMovie.poster_path : latestMovie.backdrop_path
         }`,
       }"
     >
@@ -43,13 +43,14 @@
         </div>
         <div class="banner__content__movie sm:relative">
           <div
-            class="banner__content__movie__poster"
+            class="
+              banner__content__movie__poster
+              background-cover background-center
+            "
             :style="{
               backgroundImage: `url(https://image.tmdb.org/t/p/original${
-                isMobile
-                  ? principalMovie.poster_path
-                  : principalMovie.backdrop_path
-              }`,
+                isMobile ? latestMovie.poster_path : latestMovie.backdrop_path
+              })`,
             }"
           />
           <div
@@ -71,7 +72,7 @@
                 mb-1
               "
             >
-              {{ principalMovie.title }}
+              {{ latestMovie.title }}
             </h2>
             <p
               class="
@@ -84,9 +85,12 @@
                 sm:mt-0
               "
             >
-              <span v-for="(genre, index) in principalGenres" :key="genre.id">
+              <span
+                v-for="(genre, index) in latestMovie.genres"
+                :key="genre.id"
+              >
                 {{ genre.name
-                }}<span v-if="index < principalGenres.length - 1">, </span>
+                }}<span v-if="index < latestMovie.genres.length - 1">, </span>
               </span>
             </p>
           </div>
@@ -100,70 +104,65 @@
         </div>
       </div>
     </section>
-    <section class="container mt-12 pl-8 sm:mx-auto sm:px-4">
-      <h2 class="mb-7 text-2xl line-height-xl weight-bold">Os mais amados</h2>
-      <PagesCarouselMovies :movies="popularMovies">
+    <LayoutSectionList
+      title="Os mais amados"
+      title-font-size=""
+      :additional-classes="['pl-8 ', 'sm:px-4']"
+    >
+      <PagesCarouselList :items="popularMovies">
         <template slot-scope="{ item }">
           <PagesCardMovie :heart="true" :movie="item" :poster="isMobile" />
         </template>
-      </PagesCarouselMovies>
-    </section>
-    <section class="container mt-12 pl-8 sm:mx-auto sm:px-4">
-      <h2 class="mb-7 text-2xl line-height-xl weight-bold">
-        Os melhores avaliados
-      </h2>
-      <PagesCarouselMovies :movies="topRatedMovies">
+      </PagesCarouselList>
+    </LayoutSectionList>
+    <LayoutSectionList
+      title="Os melhores avaliados"
+      :additional-classes="['pl-8 ', 'sm:px-4']"
+    >
+      <PagesCarouselList :items="topRatedMovies">
         <template slot-scope="{ item }">
           <PagesCardMovie :star="true" :movie="item" :poster="isMobile" />
         </template>
-      </PagesCarouselMovies>
-    </section>
+      </PagesCarouselList>
+    </LayoutSectionList>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 
-import { genresStore, moviesStore } from '~/store'
-import { InterfaceGenre } from '~/types/InterfaceGenre'
+import { moviesStore } from '~/store'
 import { InterfaceMovie } from '~/types/InterfaceMovie'
 
 @Component
 export default class HomePage extends Vue {
   isMobile: boolean = true
-  principalMovie: InterfaceMovie = {}
-  principalGenres: InterfaceGenre[] = []
-
+  latestMovie: InterfaceMovie = moviesStore.latest
   popularMovies: InterfaceMovie[] = moviesStore.popularMovies
   topRatedMovies: InterfaceMovie[] = moviesStore.topRatedMovies
 
   async fetch() {
-    await genresStore.fetchGenres()
-    await moviesStore.fetchPopularMovies()
-    await moviesStore.fetchTopRatedMovies()
-    await moviesStore.fetchNowPlayingMovies()
+    if (Object.keys(this.latestMovie).length === 0) {
+      await moviesStore.fetchLatest()
+      this.latestMovie = moviesStore.latest
+    }
 
-    this.popularMovies = moviesStore.popularMovies
-    this.topRatedMovies = moviesStore.topRatedMovies
+    if (this.popularMovies.length === 0) {
+      await moviesStore.fetchPopularMovies()
+      this.popularMovies = moviesStore.popularMovies
+    }
 
-    this.principalMovie =
-      moviesStore.nowPlayingMovies.length > 0
-        ? moviesStore.nowPlayingMovies[0]
-        : {}
-
-    if (Object.keys(this.principalMovie).length > 0)
-      this.principalGenres = genresStore.genres
-        .filter((genre): genre is InterfaceGenre & { id: number } => !!genre.id)
-        .filter((genre) => this.principalMovie.genre_ids?.includes(genre.id))
+    if (this.topRatedMovies.length === 0) {
+      await moviesStore.fetchTopRatedMovies()
+      this.topRatedMovies = moviesStore.topRatedMovies
+    }
   }
 
   mounted() {
-    this.checkIsMobile()
-    window.addEventListener('resize', this.checkIsMobile)
-  }
-
-  checkIsMobile() {
     this.isMobile = screen.width < 640
+    window.addEventListener('resize', () => {
+      this.isMobile = screen.width < 640
+    })
   }
 }
 </script>
@@ -192,16 +191,13 @@ export default class HomePage extends Vue {
   }
 
   &__content__text {
-    color: #fff;
+    color: $color-white;
   }
 
   &__content__movie {
     filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.05));
 
     &__poster {
-      background: #d8d8d8;
-      background-position: center;
-      background-size: cover;
       border-radius: 8px;
       height: 350px;
       width: 245px;
@@ -213,7 +209,7 @@ export default class HomePage extends Vue {
     }
 
     &__info {
-      color: #fff;
+      color: $color-white;
       z-index: 10;
 
       > p {

@@ -15,6 +15,16 @@ $grid-columns: populategrid($grid-columns-length);
   }
 }
 
+// GRID SPAN
+
+$grid-span: populategridspan($grid-columns-length);
+
+.grid-span {
+  @include options($grid-span) using ($value) {
+    grid-column: $value;
+  }
+}
+
 // GRID GAP
 
 $grid-gap: populategap($grid-gap-max);
