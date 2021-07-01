@@ -1,10 +1,10 @@
 // DISPLAY OPTIONS
 
 $display: (
+  'none': none,
+  'block': block,
   'flex': flex,
   'grid': grid,
-  'block': block,
-  'none': none,
   'inline': inline,
   'inline-block': inline-block
 );

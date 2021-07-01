@@ -5,7 +5,11 @@
       :class="titleFontSize"
     >
       {{ title }}
-      <span class="weight-medium mr-10 sm:mr-0" :class="additionalTextFontSize">
+      <span
+        v-if="hasAdditionalText"
+        class="weight-medium mr-10 sm:mr-8"
+        :class="additionalTextFontSize"
+      >
         <span class="additional-text inline-block sm:pr-2">Ver todos</span>
         <font-awesome-icon
           v-if="hasIcon"
@@ -24,6 +28,9 @@ import { Vue, Prop, Component } from 'nuxt-property-decorator'
 @Component
 export default class SectionListComponent extends Vue {
   @Prop({ type: String, required: true }) title!: string
+
+  @Prop({ type: Boolean, required: false, default: true })
+  readonly hasAdditionalText!: boolean
 
   @Prop({
     type: String,

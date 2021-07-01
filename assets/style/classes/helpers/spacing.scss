@@ -44,10 +44,8 @@ $margins: map.merge(populatespacingmap(('auto': auto)), populatespacingmap((), t
   }
 
   &a {
-    .ma {
-      @include options($margins) using ($value) {
-        margin: $value;
-      }
+    @include options($margins) using ($value) {
+      margin: $value;
     }
   }
 }

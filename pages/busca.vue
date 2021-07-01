@@ -1,34 +1,60 @@
 <template>
   <div class="mt-12 text-center">
-    <LayoutSearchInput class="block sm:none" @change="makeSearch" />
+    <LayoutSearchInput class="block lg:none" @change="makeSearch" />
     <div class="mt-8 text-left px-8">
       <h3 class="weight-bold mb-5">Resultados</h3>
-      <div class="grid grid-columns-1 sm:grid-columns-3 grid-gap-20">
-        <div class="card grid grid-columns-6" v-for="movie in searchResults" :key="movie.id">
-          <div class="background-cover background-center grid-span-2" :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.poster_path})` }" />
-          <div class="card__info flex flex-column justify-center grid-span-4 px-4">
-            <h5 class="weight-semibold text-lg mb-1">
-              {{ movie.title }}
-              <span v-if="movie.release_date">({{ new Date(movie.release_date).getFullYear() }})</span>
-            </h5>
-            <p class="card__info__genres weight-medium text-sm mb-3">
-              <span
-                v-for="(genre, index) in setGenres(movie)"
-                :key="genre.id"
-              >
-                {{ genre.name
-                }}<span v-if="index < setGenres(movie).length - 1">, </span>
+      <div class="grid grid-columns-1 md:grid-columns-2 lg:grid-columns-3 grid-gap-20">
+        <nuxt-link
+          v-for="movie in searchResults"
+          :key="movie.id"
+          :to="`/movie/${movie.id}`"
+        >
+          <div class="card grid grid-columns-6">
+            <div
+              class="background-cover background-center grid-span-2"
+              :style="{
+                backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.poster_path})`,
+              }"
+            />
+            <div
+              class="
+                card__info
+                flex flex-column
+                justify-center
+                grid-span-4
+                px-4
+              "
+            >
+              <h5 class="weight-semibold text-lg mb-1">
+                {{ movie.title }}
+                <span v-if="movie.release_date"
+                  >({{ new Date(movie.release_date).getFullYear() }})</span
+                >
+              </h5>
+              <p class="card__info__genres weight-medium text-sm mb-3">
+                <span
+                  v-for="(genre, index) in setGenres(movie)"
+                  :key="genre.id"
+                >
+                  {{ genre.name
+                  }}<span v-if="index < setGenres(movie).length - 1">, </span>
+                </span>
+              </p>
+              <span class="card__info__popularity inline-block text-sm mb-3">
+                <font-awesome-icon :icon="['fas', 'heart']" />
+                <span class="inline-block ml-2 weight-bold">{{
+                  movie.popularity
+                }}</span>
               </span>
-            </p>
-            <span class="card__info__popularity inline-block text-sm mb-3">
-              <font-awesome-icon :icon="['fas', 'heart']" />
-              <span class="inline-block ml-2 weight-bold">{{ movie.popularity }}</span>
-            </span>
-            <p v-if="movie.overview" class="card__info__overview relative weight-normal text-xs pb-4">
-              {{ movie.overview }}
-            </p>
+              <p
+                v-if="movie.overview"
+                class="card__info__overview relative weight-normal text-xs pb-4"
+              >
+                {{ movie.overview }}
+              </p>
+            </div>
           </div>
-        </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -53,15 +79,16 @@ export default class BuscaPage extends Vue {
 
   async makeSearch(query: string) {
     const response = await this.$api.$repositories.movies.makeSearch(query)
-    this.searchResults = ((response as InterfaceResponse).results as InterfaceMovie[]) || response
+    this.searchResults =
+      ((response as InterfaceResponse).results as InterfaceMovie[]) || response
   }
 
   setGenres(movie: InterfaceMovie) {
-    let genres: InterfaceGenre[] = []
+    const genres: InterfaceGenre[] = []
 
-    movie.genre_ids?.forEach(id => {
-      const genre = genresStore.genres.find(genre => genre.id === id)
-      genres.push((genre as InterfaceGenre))
+    movie.genre_ids?.forEach((id) => {
+      const genre = genresStore.genres.find((genre) => genre.id === id)
+      genres.push(genre as InterfaceGenre)
     })
 
     return genres
@@ -77,9 +104,14 @@ export default class BuscaPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+
 .card {
   border-radius: 6px;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.05);
+  color: $important-color;
   height: 160px;
   overflow: hidden;
 
@@ -98,7 +130,7 @@ export default class BuscaPage extends Vue {
   &__info__genres {
     color: $color-grey-text;
     mix-blend-mode: normal;
-    opacity: 0.8;
+    opacity: $opacity-text;
   }
 
   &__info__popularity {

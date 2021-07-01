@@ -37,8 +37,8 @@
 @function populategridspan($max) {
   $span: ();
 
-  @for $size from 1 through $max {
-    $span: map.merge($span, ($size: span #{$size} / span #{$size}));
+  @for $size from $max * -1 through -1 {
+    $span: map.merge($span, ($size * -1: span #{$size * -1} / span #{$size * -1}));
   }
 
   @return $span;
@@ -46,11 +46,12 @@
 
 // CREATE MAP FOR PLACEMENTS
 
-@function populateplacementmap() {
+@function populateplacementmap($is-negative: false) {
   $placements: ();
+  $i: if($is-negative, -1, 1);
 
   @each $name, $multiplier in $placement-multipliers {
-    $placements: map.merge($placements, ($name: $placement-initial * $multiplier));
+    $placements: map.merge($placements, ($name: $placement-initial * $multiplier * $i));
   }
 
   @return $placements;

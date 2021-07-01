@@ -8,10 +8,23 @@
 // PLACEMENT
 
 $position-placements: populateplacementmap();
+$position-placements-negative: populateplacementmap(true);
+
+.top-n {
+  @include options($position-placements-negative) using ($value) {
+    top: $value;
+  }
+}
 
 .top {
   @include options($position-placements) using ($value) {
     top: $value;
+  }
+}
+
+.bottom-n {
+  @include options($position-placements-negative) using ($value) {
+    bottom: $value;
   }
 }
 
@@ -21,9 +34,21 @@ $position-placements: populateplacementmap();
   }
 }
 
+.left-n {
+  @include options($position-placements-negative) using ($value) {
+    left: $value;
+  }
+}
+
 .left {
   @include options($position-placements) using ($value) {
     left: $value;
+  }
+}
+
+.right-n {
+  @include options($position-placements-negative) using ($value) {
+    right: $value;
   }
 }
 
@@ -33,10 +58,24 @@ $position-placements: populateplacementmap();
   }
 }
 
+.placement-x-n {
+  @include options($position-placements-negative) using ($value) {
+    left: $value;
+    right: $value;
+  }
+}
+
 .placement-x {
   @include options($position-placements) using ($value) {
     left: $value;
     right: $value;
+  }
+}
+
+.placement-y-n {
+  @include options($position-placements-negative) using ($value) {
+    bottom: $value;
+    top: $value;
   }
 }
 

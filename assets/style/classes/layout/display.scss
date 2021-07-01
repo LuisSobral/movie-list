@@ -15,6 +15,16 @@ $grid-columns: populategrid($grid-columns-length);
   }
 }
 
+// GRID ROWS
+
+$grid-rows: populategrid($grid-rows-length);
+
+.grid-rows {
+  @include options($grid-rows) using ($value) {
+    grid-template-rows: $value;
+  }
+}
+
 // GRID SPAN
 
 $grid-span: populategridspan($grid-columns-length);
@@ -22,6 +32,12 @@ $grid-span: populategridspan($grid-columns-length);
 .grid-span {
   @include options($grid-span) using ($value) {
     grid-column: $value;
+  }
+}
+
+.grid-rows-span {
+  @include options($grid-span) using ($value) {
+    grid-row: $value;
   }
 }
 

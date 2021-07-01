@@ -11,9 +11,14 @@ const formatDate = function (date: Date) {
 }
 
 export default ($axios: NuxtAxiosInstance) => ({
-  async movie(id: number): Promise<InterfaceMovie> {
+  async movie(id: number, querys?: string): Promise<InterfaceMovie> {
     try {
-      return await $axios.$get(`movie/${id}?language=pt-BR`)
+      let append: string = ''
+
+      if (querys) {
+        append = `append_to_response=${querys}`
+      }
+      return await $axios.$get(`movie/${id}?language=pt-BR&${append}`)
     } catch (failure) {
       return {}
     }
@@ -58,11 +63,15 @@ export default ($axios: NuxtAxiosInstance) => ({
     }
   },
 
-  async makeSearch(query: string): Promise<InterfaceResponse | InterfaceMovie[]> {
+  async makeSearch(
+    query: string
+  ): Promise<InterfaceResponse | InterfaceMovie[]> {
     try {
-      return await $axios.$get(`search/movie?language=pt-BR&query=${encodeURIComponent(query)}`)
+      return await $axios.$get(
+        `search/movie?language=pt-BR&query=${encodeURIComponent(query)}`
+      )
     } catch (failure) {
       return []
     }
-  }
+  },
 })

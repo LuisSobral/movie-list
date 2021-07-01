@@ -4,7 +4,7 @@
       class="banner relative background-center"
       :style="{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${
-          isMobile ? latestMovie.poster_path : latestMovie.backdrop_path
+          screenWidth < 768 ? avengersMovie.poster_path : avengersMovie.backdrop_path
         }`,
       }"
     >
@@ -20,7 +20,7 @@
           placement-x-0
           mx-auto
           pa-8
-          sm:py-0 sm:px-4
+          md:py-0 sm:px-8
         "
       >
         <div class="banner__content__text sm:mb-8">
@@ -49,48 +49,50 @@
             "
             :style="{
               backgroundImage: `url(https://image.tmdb.org/t/p/original${
-                isMobile ? latestMovie.poster_path : latestMovie.backdrop_path
+                screenWidth < 768
+                  ? avengersMovie.poster_path
+                  : avengersMovie.backdrop_path
               })`,
             }"
           />
           <div
             class="
               banner__content__movie__info
-              sm:absolute sm:bottom-10
+              md:absolute md:bottom-10
               mt-3
-              sm:mt-0 sm:ml-12
+              md:mt-0 md:ml-12
             "
           >
             <h2
               class="
                 text-sm
-                sm:text-3xl
+                md:text-3xl
                 line-height-lg
-                sm:line-height-4xl
+                md:line-height-4xl
                 weight-semibold
-                sm:weight-medium
+                md:weight-medium
                 mb-1
               "
             >
-              {{ latestMovie.title }}
+              {{ avengersMovie.title }}
             </h2>
             <p
               class="
                 text-xs
-                sm:text-sm
+                md:text-sm
                 line-height-xs
-                sm:line-height-sm
+                md:line-height-sm
                 weight-medium
                 mt-2
-                sm:mt-0
+                md:mt-0
               "
             >
               <span
-                v-for="(genre, index) in latestMovie.genres"
+                v-for="(genre, index) in avengersMovie.genres"
                 :key="genre.id"
               >
                 {{ genre.name
-                }}<span v-if="index < latestMovie.genres.length - 1">, </span>
+                }}<span v-if="index < avengersMovie.genres.length - 1">, </span>
               </span>
             </p>
           </div>
@@ -98,7 +100,7 @@
             class="
               banner__content__movie__overlay
               none
-              sm:block sm:absolute sm:h-half sm:bottom-0 sm:left-0 sm:right-0
+              md:block md:absolute md:h-half md:bottom-0 md:left-0 md:right-0
             "
           />
         </div>
@@ -107,21 +109,21 @@
     <LayoutSectionList
       title="Os mais amados"
       title-font-size=""
-      :additional-classes="['pl-8 ', 'sm:px-4']"
+      :additional-classes="['pl-8 ', 'sm:px-8']"
     >
-      <PagesCarouselList :items="popularMovies">
+      <PagesCarouselList :items="popularMovies" :items-per-slide="3">
         <template slot-scope="{ item }">
-          <PagesCardMovie :heart="true" :movie="item" :poster="isMobile" />
+          <PagesCardMovie :heart="true" :movie="item" :poster="screenWidth < 1024" />
         </template>
       </PagesCarouselList>
     </LayoutSectionList>
     <LayoutSectionList
       title="Os melhores avaliados"
-      :additional-classes="['pl-8 ', 'sm:px-4']"
+      :additional-classes="['pl-8 ', 'sm:px-8']"
     >
-      <PagesCarouselList :items="topRatedMovies">
+      <PagesCarouselList :items="topRatedMovies" :items-per-slide="3">
         <template slot-scope="{ item }">
-          <PagesCardMovie :star="true" :movie="item" :poster="isMobile" />
+          <PagesCardMovie :star="true" :movie="item" :poster="screenWidth < 1024" />
         </template>
       </PagesCarouselList>
     </LayoutSectionList>
@@ -136,15 +138,15 @@ import { InterfaceMovie } from '~/types/InterfaceMovie'
 
 @Component
 export default class HomePage extends Vue {
-  isMobile: boolean = true
-  latestMovie: InterfaceMovie = moviesStore.latest
+  screenWidth: number = 0
+  avengersMovie: InterfaceMovie = moviesStore.avengers
   popularMovies: InterfaceMovie[] = moviesStore.popularMovies
   topRatedMovies: InterfaceMovie[] = moviesStore.topRatedMovies
 
   async fetch() {
-    if (Object.keys(this.latestMovie).length === 0) {
+    if (Object.keys(this.avengersMovie).length === 0) {
       await moviesStore.fetchLatest()
-      this.latestMovie = moviesStore.latest
+      this.avengersMovie = moviesStore.avengers
     }
 
     if (this.popularMovies.length === 0) {
@@ -159,9 +161,9 @@ export default class HomePage extends Vue {
   }
 
   mounted() {
-    this.isMobile = screen.width < 640
+    this.screenWidth = screen.width
     window.addEventListener('resize', () => {
-      this.isMobile = screen.width < 640
+      this.screenWidth = screen.width
     })
   }
 }
@@ -202,7 +204,7 @@ export default class HomePage extends Vue {
       height: 350px;
       width: 245px;
 
-      @media screen and (min-width: 640px) {
+      @media screen and (min-width: 768px) {
         height: 395px;
         width: 100%;
       }
@@ -214,7 +216,7 @@ export default class HomePage extends Vue {
 
       > p {
         mix-blend-mode: normal;
-        opacity: 0.8;
+        opacity: $opacity-text;
       }
     }
 

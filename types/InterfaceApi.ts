@@ -17,7 +17,7 @@ interface InterfaceResponse {
 interface InterfaceApi {
   $repositories: {
     movies: {
-      movie(id: number): Promise<InterfaceMovie>
+      movie(id: number, querys?: string): Promise<InterfaceMovie>
       nowPlaying(): Promise<InterfaceResponse | InterfaceMovie[]>
       popular(): Promise<InterfaceResponse | InterfaceMovie[]>
       topRated(): Promise<InterfaceResponse | InterfaceMovie[]>

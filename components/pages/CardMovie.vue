@@ -2,7 +2,11 @@
   <nuxt-link :to="`/movie/${movie.id}`" class="block sm:relative">
     <div
       class="card relative background-cover background-center"
-      :class="{ 'card--hover': hoverEffect, card__poster: poster }"
+      :class="{
+        'card--hover': hoverEffect,
+        card__poster: poster,
+        card__noimage: !movie.poster_path && !movie.backdrop_path,
+      }"
       :style="backgroundStyle"
       @mouseover="mouseOverFunction"
       @mouseleave="mouseLeaveFunction"
@@ -37,8 +41,8 @@
         :class="{ 'sm:h-half': hover }"
       >
         <h3
-          class="sm:absolute weight-bold line-height-lg sm:px-4"
-          :class="{ 'sm:bottom-6': hover }"
+          class="sm:absolute weight-bold line-height-lg sm:px-4 lg:bottom-n-12"
+          :class="{ 'lg:bottom-6': hover }"
           :style="{ opacity: hover ? 1 : 0 }"
         >
           {{ movie.title }}
@@ -47,7 +51,6 @@
       <div
         v-if="!movie.poster_path && !movie.backdrop_path"
         class="
-          card__noimage
           absolute
           flex
           items-center
@@ -124,15 +127,18 @@ export default class CarouselMoviesComponent extends Vue {
   }
 
   get backgroundStyle() {
+    if (!this.movie.poster_path && !this.movie.backdrop_path) {
+      return
+    }
+
     const backgroundImage =
       this.movie.poster_path || this.movie.backdrop_path
         ? `url(https://image.tmdb.org/t/p/original${
             this.poster ? this.movie.poster_path : this.movie.backdrop_path
           })`
         : undefined
-    const background =
-      !this.movie.poster_path && !this.movie.backdrop_path ? '#000' : undefined
-    return { backgroundImage, background }
+
+    return { backgroundImage }
   }
 }
 </script>
@@ -150,7 +156,7 @@ a {
   &--hover {
     transition: transform 0.2s;
 
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 1024px) {
       &:hover {
         transform: scale(1.3);
         z-index: 10;
@@ -172,7 +178,7 @@ a {
       > p {
         color: $color-grey-text;
         mix-blend-mode: normal;
-        opacity: 0.8;
+        opacity: $opacity-text;
       }
     }
   }
@@ -193,7 +199,7 @@ a {
 
   &__star {
     > svg {
-      color: rgba(250, 198, 0, 1);
+      color: $color-star;
     }
   }
 
@@ -206,7 +212,6 @@ a {
     border-radius: 0 0 6px 6px;
 
     h3 {
-      bottom: -65px;
       color: $color-white;
       opacity: 0;
       transition: all 1s ease-in-out;
@@ -214,6 +219,7 @@ a {
   }
 
   &__noimage {
+    background: #000;
     color: $color-white;
   }
 }

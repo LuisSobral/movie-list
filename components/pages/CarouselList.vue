@@ -1,6 +1,6 @@
 <template>
-  <div class="carousel sm:mx-n10">
-    <div class="carousel__wrapper flex sm:px-4">
+  <div class="carousel lg:mx-n10">
+    <div class="carousel__wrapper flex lg:px-4">
       <div
         v-for="(slide, index) in slides"
         :key="index"
@@ -11,9 +11,9 @@
           grid grid-gap-20
           sm:w-full
           pr-5
-          sm:px-7 sm:py-8
+          lg:px-7 lg:py-8
         "
-        :class="[`sm:grid-columns-${itemsPerSlide}`]"
+        :class="[`sm:grid-columns-${itemsPerSlide}`, `md:grid-columns-${itemsPerSlideMd}`]"
       >
         <div
           v-for="item in slide"
@@ -44,11 +44,21 @@ export default class CarouselListComponent extends Vue {
   @Prop({ type: Number, required: false, default: 4 })
   readonly itemsPerSlide!: number
 
+  @Prop({ type: Number, required: false, default: 4 })
+  readonly itemsPerSlideMd!: number
+
   slides: Array<(InterfaceMovie | InterfacePeople | InterfaceGenre)[]> = []
 
   created() {
     const itemsClone = [...this.items]
-    this.slides = this.separateSlides(itemsClone, this.itemsPerSlide)
+
+    if (process.client) {
+      if (screen.width >= 768) {
+        this.slides = this.separateSlides(itemsClone, this.itemsPerSlideMd)
+      } else {
+        this.slides = this.separateSlides(itemsClone, this.itemsPerSlide)
+      }
+    }
   }
 
   separateSlides(

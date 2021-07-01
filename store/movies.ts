@@ -10,18 +10,18 @@ import { InterfaceResponse } from '~/types/InterfaceApi'
   stateFactory: true,
 })
 export default class MoviesModule extends VuexModule {
-  latest: InterfaceMovie = {}
+  avengers: InterfaceMovie = {}
   nowPlayingMovies: InterfaceMovie[] = []
   popularMovies: InterfaceMovie[] = []
   topRatedMovies: InterfaceMovie[] = []
 
   @MutationAction
   async fetchLatest(): Promise<{
-    latest: InterfaceMovie
+    avengers: InterfaceMovie
   }> {
     const response = await $api.$repositories.movies.movie(299534)
     return {
-      latest: response,
+      avengers: response,
     }
   }
 

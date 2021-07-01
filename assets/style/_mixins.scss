@@ -1,17 +1,15 @@
 // CREATE RESPONSIVE CLASSES
 
-@mixin responsive() {
+@mixin responsive($breakpoint, $value) {
   @at-root {
-    @each $breakpoint, $value in $breakpoints {
-      @each $selector in & {
-        $selector: list.nth($selector, 1);
-        $selector: string.slice($selector, 2);
-        $selector: '.#{$breakpoint}#{$breakpoint-separator}#{$selector}';
+    @each $selector in & {
+      $selector: list.nth($selector, 1);
+      $selector: string.slice($selector, 2);
+      $selector: '.#{$breakpoint}#{$breakpoint-separator}#{$selector}';
 
-        #{$selector} {
-          @media screen and (min-width: #{$value}) {
-            @content;
-          }
+      #{$selector} {
+        @media screen and (min-width: #{$value}) {
+          @content;
         }
       }
     }
@@ -24,21 +22,33 @@
   @each $key, $value in $classes {
     @if & {
       &#{$option-separator}#{$key} {
-        @include responsive {
-          @content($value !important);
-        }
-
         @content($value);
       }
     }
 
     @else {
       .#{$key} {
-        @include responsive {
-          @content($value !important);
-        }
-
         @content($value);
+      }
+    }
+  }
+
+  @each $breakpoint, $width in $breakpoints {
+    @each $key, $value in $classes {
+      @if & {
+        &#{$option-separator}#{$key} {
+          @include responsive($breakpoint, $width) {
+            @content($value);
+          }
+        }
+      }
+
+      @else {
+        .#{$key} {
+          @include responsive($breakpoint, $width) {
+            @content($value);
+          }
+        }
       }
     }
   }

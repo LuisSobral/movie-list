@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto pl-8 sm:pl-0">
+  <div class="container mx-auto pl-8 xl:pl-0">
     <h1 class="mt-16 weigth-bold text-4xl">Descborir</h1>
     <LayoutSectionList
       title="Adicionados recentemente"
@@ -7,7 +7,7 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularMovies" :items-per-slide="6">
+      <PagesCarouselList :items="popularMovies" :items-per-slide="4">
         <template slot-scope="{ item }">
           <PagesCardMovie
             :movie="item"
@@ -24,13 +24,11 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularActors" :items-per-slide="15">
+      <PagesCarouselList :items="popularActors" :items-per-slide="6" :items-per-slide-md="8">
         <template slot-scope="{ item }">
-          <div
-            class="avatar background-cover background-center"
-            :style="{
-              backgroundImage: `url(https://image.tmdb.org/t/p/original${item.profile_path})`,
-            }"
+          <PagesPeopleAvatar
+            :size="80"
+            :image="`https://image.tmdb.org/t/p/original${item.profile_path}`"
           />
         </template>
       </PagesCarouselList>
@@ -44,7 +42,8 @@
       <PagesCarouselList
         class="carousel__genre"
         :items="genres"
-        :items-per-slide="9"
+        :items-per-slide="5"
+        :items-per-slide-md="5"
       >
         <template slot-scope="{ item }">
           <div
@@ -54,6 +53,7 @@
               flex
               items-center
               justify-center
+              text-center
               background-cover background-center
               sm:w-auto
             "
@@ -78,7 +78,7 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="release.movies" :items-per-slide="6">
+      <PagesCarouselList :items="release.movies" :items-per-slide="4">
         <template slot-scope="{ item }">
           <PagesCardMovie :movie="item" :poster="true" :hover-effect="false" />
         </template>
@@ -190,26 +190,20 @@ export default class DescobrirPage extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.avatar {
-  border-radius: 48px;
-  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
-  height: 80px;
-  width: 80px;
-
-  @media screen and (min-width: 640px) {
-    height: 76px;
-    width: 76px;
-  }
-}
-
 .genre {
   border-radius: 10px;
   color: $color-white !important;
   height: 120px;
   width: 120px;
 
-  @media screen and (min-width: 640) {
-    height: 125px;
+  @media screen and (min-width: 640px) {
+    height: 100px;
+    width: 100px;
+  }
+
+  @media screen and (min-width: 768px) {
+    height: 120px;
+    width: 120px;
   }
 
   > span {
