@@ -13,7 +13,7 @@
           pr-5
           lg:px-7 lg:py-8
         "
-        :class="[`sm:grid-columns-${itemsPerSlide}`, `md:grid-columns-${itemsPerSlideMd}`]"
+        :class="[`sm:grid-columns-${itemsPerSlide}`, `md:grid-columns-${itemsPerSlideMd}`, `lg:grid-columns-${itemsPerSlideLg}`]"
       >
         <div
           v-for="item in slide"
@@ -47,13 +47,18 @@ export default class CarouselListComponent extends Vue {
   @Prop({ type: Number, required: false, default: 4 })
   readonly itemsPerSlideMd!: number
 
+  @Prop({ type: Number, required: false, default: 4 })
+  readonly itemsPerSlideLg!: number
+
   slides: Array<(InterfaceMovie | InterfacePeople | InterfaceGenre)[]> = []
 
   created() {
     const itemsClone = [...this.items]
 
     if (process.client) {
-      if (screen.width >= 768) {
+      if (screen.width >= 1024) {
+        this.slides = this.separateSlides(itemsClone, this.itemsPerSlideLg)
+      } else if (screen.width >= 768) {
         this.slides = this.separateSlides(itemsClone, this.itemsPerSlideMd)
       } else {
         this.slides = this.separateSlides(itemsClone, this.itemsPerSlide)

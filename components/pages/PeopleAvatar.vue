@@ -1,6 +1,6 @@
 <template>
   <div
-    class="avatar background-cover background-center"
+    class="avatar background-cover background-center mx-auto"
     :style="{
       height: `${sizeMd || size}px`,
       width: `${sizeMd || size}px`,

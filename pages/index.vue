@@ -144,6 +144,10 @@ export default class HomePage extends Vue {
   topRatedMovies: InterfaceMovie[] = moviesStore.topRatedMovies
 
   async fetch() {
+    this.avengersMovie = moviesStore.avengers
+    this.popularMovies = moviesStore.popularMovies
+    this.topRatedMovies = moviesStore.topRatedMovies
+
     if (Object.keys(this.avengersMovie).length === 0) {
       await moviesStore.fetchLatest()
       this.avengersMovie = moviesStore.avengers

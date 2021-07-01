@@ -7,7 +7,7 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularMovies" :items-per-slide="4">
+      <PagesCarouselList :items="popularMovies" :items-per-slide="4" :items-per-slide-lg="6">
         <template slot-scope="{ item }">
           <PagesCardMovie
             :movie="item"
@@ -24,7 +24,7 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularActors" :items-per-slide="6" :items-per-slide-md="8">
+      <PagesCarouselList :items="popularActors" :items-per-slide="6" :items-per-slide-md="8" :items-per-slide-lg="15">
         <template slot-scope="{ item }">
           <PagesPeopleAvatar
             :size="80"
@@ -44,6 +44,7 @@
         :items="genres"
         :items-per-slide="5"
         :items-per-slide-md="5"
+        :items-per-slide-lg="8"
       >
         <template slot-scope="{ item }">
           <div
@@ -78,7 +79,7 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="release.movies" :items-per-slide="4">
+      <PagesCarouselList :items="release.movies" :items-per-slide="4" :items-per-slide-lg="6">
         <template slot-scope="{ item }">
           <PagesCardMovie :movie="item" :poster="true" :hover-effect="false" />
         </template>
@@ -104,6 +105,10 @@ export default class DescobrirPage extends Vue {
   popularMovies: InterfaceMovie[] = moviesStore.popularMovies
 
   async fetch() {
+    this.genres = genresStore.genres
+    this.popularActors = peopleStore.popular
+    this.popularMovies = moviesStore.popularMovies
+
     if (this.genres.length === 0) {
       await genresStore.fetchGenres()
       this.genres = genresStore.genres
