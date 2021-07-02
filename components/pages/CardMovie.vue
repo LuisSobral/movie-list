@@ -172,6 +172,10 @@ a {
       width: auto;
     }
 
+    @media screen and (min-width: 640px) {
+      height: 350px;
+    }
+
     &__name {
       max-width: 120px;
 

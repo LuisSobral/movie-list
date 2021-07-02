@@ -3,9 +3,15 @@
 .container {
   width: 100%;
 
-  @each $breakpoint, $value in $breakpoints {
-    @media screen and (min-width: #{$value}) {
-      max-width: $value;
+  @each $breakpoint, $width in $breakpoints {
+    @media screen and (min-width: #{$width}) {
+      max-width: $width;
+    }
+  }
+
+  @each $breakpoint, $width in $breakpoints {
+    @include responsive($breakpoint, $width) {
+      max-width: $width;
     }
   }
 }

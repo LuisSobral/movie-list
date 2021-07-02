@@ -7,7 +7,11 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularMovies" :items-per-slide="4" :items-per-slide-lg="6">
+      <PagesCarouselList
+        :items="popularMovies"
+        :items-per-slide="4"
+        :items-per-slide-lg="6"
+      >
         <template slot-scope="{ item }">
           <PagesCardMovie
             :movie="item"
@@ -24,7 +28,12 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="popularActors" :items-per-slide="6" :items-per-slide-md="8" :items-per-slide-lg="15">
+      <PagesCarouselList
+        :items="popularActors"
+        :items-per-slide="6"
+        :items-per-slide-md="8"
+        :items-per-slide-lg="15"
+      >
         <template slot-scope="{ item }">
           <PagesPeopleAvatar
             :size="80"
@@ -79,7 +88,11 @@
       additional-text-font-size="text-sm sm:text-xs"
       :has-icon="false"
     >
-      <PagesCarouselList :items="release.movies" :items-per-slide="4" :items-per-slide-lg="6">
+      <PagesCarouselList
+        :items="release.movies"
+        :items-per-slide="4"
+        :items-per-slide-lg="6"
+      >
         <template slot-scope="{ item }">
           <PagesCardMovie :movie="item" :poster="true" :hover-effect="false" />
         </template>

@@ -10,9 +10,11 @@
           ? $emit('change', query)
           : $router.push({ path: '/busca', query: { search: query } })
       "
-      @keydown.enter="toolbar
+      @keydown.enter="
+        toolbar
           ? $emit('change', query)
-          : $router.push({ path: '/busca', query: { search: query } })"
+          : $router.push({ path: '/busca', query: { search: query } })
+      "
     />
     <font-awesome-icon
       :icon="['fas', 'search']"
@@ -21,7 +23,15 @@
     <font-awesome-icon
       v-if="query"
       :icon="['fas', 'times']"
-      class="absolute top-2 right-10 sm:right-12 md:right-15 lg:right-8 text-2xl"
+      class="
+        absolute
+        top-2
+        right-10
+        sm:right-12
+        md:right-15
+        lg:right-8
+        text-2xl
+      "
       @click="query = ''"
     />
   </div>

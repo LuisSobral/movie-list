@@ -3,7 +3,14 @@
     <LayoutSearchInput class="block lg:none" @change="makeSearch" />
     <div class="mt-8 text-left px-8">
       <h3 class="weight-bold mb-5">Resultados</h3>
-      <div class="grid grid-columns-1 md:grid-columns-2 lg:grid-columns-3 grid-gap-20">
+      <div
+        class="
+          grid grid-columns-1
+          md:grid-columns-2
+          lg:grid-columns-3
+          grid-gap-20
+        "
+      >
         <nuxt-link
           v-for="movie in searchResults"
           :key="movie.id"

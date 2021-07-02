@@ -4,7 +4,10 @@
       <div
         class="relative h-full background-center background-cover"
         :style="{
-          backgroundImage: principalTrailer && principalTrailer.key ? `url(https://img.youtube.com/vi/${principalTrailer.key}/0.jpg)` : `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+          backgroundImage:
+            principalTrailer && principalTrailer.key
+              ? `url(https://img.youtube.com/vi/${principalTrailer.key}/0.jpg)`
+              : `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }"
       >
         <div class="video__overlay absolute placement-y-0 placement-x-0" />
@@ -32,7 +35,10 @@
               />
             </div>
           </div>
-          <div v-if="principalTrailer && principalTrailer.key" class="video__buttons__play relative mx-auto">
+          <div
+            v-if="principalTrailer && principalTrailer.key"
+            class="video__buttons__play relative mx-auto"
+          >
             <font-awesome-icon
               class="absolute placement-y-0 placement-x-0 ma-auto"
               :icon="['fas', 'play']"
@@ -107,7 +113,13 @@
             />
           </div>
         </div>
-        <div class="md:grid md:grid-gap-20 md:grid-columns-2 md:grid-rows-2 mt-10 px-6">
+        <div
+          class="
+            md:grid md:grid-gap-20 md:grid-columns-2 md:grid-rows-2
+            mt-10
+            px-6
+          "
+        >
           <div class="card tabs__content md:grid-rows-span-2 w-full py-4 px-6">
             <span class="weight-bold">{{ movie.runtime }} min</span>
             <div
@@ -139,7 +151,11 @@
           </div>
           <div class="card cast mt-10 md:mt-0 mr-n6 md:mr-0 py-4 lg:px-16 pl-4">
             <h3 class="mb-2">Elenco</h3>
-            <PagesCarouselList :items="cast" :items-per-slide="8" :items-per-slide-md="4">
+            <PagesCarouselList
+              :items="cast"
+              :items-per-slide="8"
+              :items-per-slide-md="4"
+            >
               <template slot-scope="{ item }">
                 <PagesPeopleAvatar
                   :size="60"
@@ -150,31 +166,31 @@
           </div>
           <div class="card details mt-10 md:mt-n12 lg:mt-0 pa-4 md:py-2">
             <h3 class="mb-5 md:mb-3">Detalhes</h3>
-            <p class="pb-3 lg:inline-block">
+            <p class="pb-3 lg:inline">
               <span class="card__text weight-medium text-sm"
                 >Título Original:</span
               >
               <span class="weight-bold">{{ movie.original_title }}</span>
             </p>
-            <p class="pb-3 lg:inline-block lg:mx-2">
+            <p class="pb-3 lg:inline lg:mx-2">
               <span class="card__text weight-medium text-sm">Local:</span>
               <span class="weight-bold">{{
                 movie.production_countries[0].name
               }}</span>
             </p>
-            <p class="pb-3 lg:inline-block">
+            <p class="pb-3 lg:inline">
               <span class="card__text weight-medium text-sm"
                 >Estreia no Brasil:</span
               >
               <span class="weight-bold">{{ releaseBR }}</span>
             </p>
-            <p class="pb-3 lg:inline-block lg:mx-2">
+            <p class="pb-3 lg:inline lg:mx-2">
               <span class="card__text weight-medium text-sm">Direção:</span>
               <span class="weight-bold">{{
                 crew.find((people) => people.job === 'Director').name
               }}</span>
             </p>
-            <p class="pb-3 lg:inline-block">
+            <p class="pb-3 lg:inline">
               <span class="card__text weight-medium text-sm">Produção:</span>
               <span class="weight-bold"
                 ><span
@@ -224,9 +240,21 @@ import { Vue, Ref, Component } from 'nuxt-property-decorator'
 export default class HomePage extends Vue {
   tabIndex: number = 0
   tabs: object[] = [
-    { label: 'Info', span: 'grid-span-2 md:grid-span-1', alignment: 'text-left' },
-    { label: 'Reviews', span: 'grid-span-3 md:grid-span-2', alignment: 'text-center' },
-    { label: 'Trailers', span: 'grid-span-3 md:grid-span-2', alignment: 'text-center' },
+    {
+      label: 'Info',
+      span: 'grid-span-2 md:grid-span-1',
+      alignment: 'text-left',
+    },
+    {
+      label: 'Reviews',
+      span: 'grid-span-3 md:grid-span-2',
+      alignment: 'text-center',
+    },
+    {
+      label: 'Trailers',
+      span: 'grid-span-3 md:grid-span-2',
+      alignment: 'text-center',
+    },
   ]
 
   @Ref('tabSlider')

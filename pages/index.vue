@@ -4,7 +4,9 @@
       class="banner relative background-center"
       :style="{
         backgroundImage: `url(https://image.tmdb.org/t/p/original${
-          screenWidth < 768 ? avengersMovie.poster_path : avengersMovie.backdrop_path
+          screenWidth < 768
+            ? avengersMovie.poster_path
+            : avengersMovie.backdrop_path
         }`,
       }"
     >
@@ -20,7 +22,8 @@
           placement-x-0
           mx-auto
           pa-8
-          md:py-0 sm:px-8
+          md:py-0
+          sm:px-8
         "
       >
         <div class="banner__content__text sm:mb-8">
@@ -113,7 +116,11 @@
     >
       <PagesCarouselList :items="popularMovies" :items-per-slide="3">
         <template slot-scope="{ item }">
-          <PagesCardMovie :heart="true" :movie="item" :poster="screenWidth < 1024" />
+          <PagesCardMovie
+            :heart="true"
+            :movie="item"
+            :poster="screenWidth < 1024"
+          />
         </template>
       </PagesCarouselList>
     </LayoutSectionList>
@@ -123,7 +130,11 @@
     >
       <PagesCarouselList :items="topRatedMovies" :items-per-slide="3">
         <template slot-scope="{ item }">
-          <PagesCardMovie :star="true" :movie="item" :poster="screenWidth < 1024" />
+          <PagesCardMovie
+            :star="true"
+            :movie="item"
+            :poster="screenWidth < 1024"
+          />
         </template>
       </PagesCarouselList>
     </LayoutSectionList>

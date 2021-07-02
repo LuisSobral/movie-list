@@ -13,7 +13,11 @@
           pr-5
           lg:px-7 lg:py-8
         "
-        :class="[`sm:grid-columns-${itemsPerSlide}`, `md:grid-columns-${itemsPerSlideMd}`, `lg:grid-columns-${itemsPerSlideLg}`]"
+        :class="[
+          `sm:grid-columns-${itemsPerSlide}`,
+          `md:grid-columns-${itemsPerSlideMd}`,
+          `lg:grid-columns-${itemsPerSlideLg}`,
+        ]"
       >
         <div
           v-for="item in slide"

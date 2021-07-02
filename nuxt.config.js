@@ -1,3 +1,6 @@
+import glob from 'glob-all'
+const PurgeCSSPlugin = require('purgecss-webpack-plugin')
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -30,8 +33,6 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://github.com/nuxt-community/style-resources-module
     '@nuxtjs/style-resources',
-    // https://github.com/Developmint/nuxt-purgecss
-    'nuxt-purgecss',
     // https://google-fonts.nuxtjs.org/setup
     '@nuxtjs/google-fonts',
     // https://github.com/nuxt-community/fontawesome-module
@@ -65,7 +66,7 @@ export default {
         'faArrowLeft',
         'faShareSquare',
         'faHome',
-        'faTicketAlt'
+        'faTicketAlt',
       ],
     },
   },
@@ -82,7 +83,46 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extractCSS: true,
+    plugins: [
+      new PurgeCSSPlugin({
+        paths: glob.sync(
+          ['./pages/**/*.vue', './layouts/**/*.vue', './components/**/*.vue'],
+          { nodir: true }
+        ),
+        safelist: [
+          'a',
+          'button',
+          'input',
+          'body',
+          'html',
+          'nuxt-progress',
+          '__nuxt',
+          '__layout',
+          /-(leave|enter|appear)(|-(to|from|active))$/,
+          /^nuxt-link(|-exact)-active$/,
+          /^(?!cursor-move).+-move$/,
+          /data-v-.*/,
+          /(sm|md|lg):grid-columns-\d+/,
+          /svg.*/,
+          /fa.*/,
+        ],
+        extractors: [
+          {
+            extractor: (content) => {
+              const contentWithoutStyleBlocks = content.replace(
+                /<style[^]+?<\/style>/gi,
+                ''
+              ) // Remove inline vue styles
+              return contentWithoutStyleBlocks.match(/[\w-.:/]+(?<!:)/g) || []
+            },
+            extensions: ['html', 'vue', 'js'],
+          },
+        ],
+      }),
+    ],
+  },
 
   // Global public environment variables: https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-runtime-config
   publicRuntimeConfig: {

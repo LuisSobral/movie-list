@@ -37,6 +37,7 @@
     "fibers": "^5.0.0",
     "nuxt-purgecss": "^1.0.0",
     "prettier": "^2.2.1",
+    "purgecss-webpack-plugin": "^4.0.3",
     "sass": "^1.35.1",
     "sass-loader": "^10.2.0",
     "stylelint": "^13.13.1",
